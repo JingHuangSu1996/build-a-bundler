@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "super-simple-bundler src/index.js",
+    "build": "super-simple-bundler-swc src/index.js",
     "start": "open ./index.html"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
-    "super-simple-bundler": "0.0.0"
+    "super-simple-bundler-swc": "0.0.0"
   }
 }
