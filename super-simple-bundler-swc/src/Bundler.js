@@ -131,7 +131,7 @@ export default class Bundler {
       trailingComma: 'all',
       singleQuote: true,
       printWidth: 120,
-      parser: 'swc',
+      parser: 'babel',
     });
 
     fs.writeFileSync('dist/bundle.js', formatted);
