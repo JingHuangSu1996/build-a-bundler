@@ -22,9 +22,7 @@ export default class Bundler {
 
   async bundle() {
     await this.processAssets();
-
     await this.packageAssetsIntoBundles();
-
     console.log(chalk.green('Done!'));
   }
 
