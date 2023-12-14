@@ -6,9 +6,6 @@
     "build": "super-simple-bundler-swc src/index.js",
     "start": "open ./index.html"
   },
-  "devDependencies": {
-    "babel-preset-env": "^1.7.0"
-  },
   "dependencies": {
     "@babel/preset-env": "^7.23.6"
   }
