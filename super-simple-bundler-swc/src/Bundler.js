@@ -28,7 +28,6 @@ export default class Bundler {
 
   processAssets() {
     this.createAsset(this.entryFilePath);
-
     return this.processQueue.onIdle();
   }
 
@@ -48,14 +47,8 @@ export default class Bundler {
     let { filePath } = asset;
     let fileContents = await readFile(filePath, 'utf8');
 
-    let ast = await parse(fileContents, {
-      syntax: 'ecmascript', // "ecmascript" | "typescript"
-      comments: false,
-      script: true,
-
-      // Defaults to es3
-      target: 'es3',
-    });
+    // Transform the file contents to an AST
+    let ast = await parse(fileContents);
 
     let dependencyRequests = [];
 
@@ -65,6 +58,7 @@ export default class Bundler {
       }
     }
 
+    // Resolve the dependency requests to absolute paths
     let dependencyMap = new Map();
     dependencyRequests.forEach((moduleRequest) => {
       let srcDir = path.dirname(filePath);
@@ -74,8 +68,8 @@ export default class Bundler {
       dependencyMap.set(moduleRequest, dependencyAsset);
     });
 
+    // Transform the AST to CommonJS
     let { code } = await transform(ast, {
-      jsc: {},
       module: {
         type: 'commonjs',
         noInterop: true,
@@ -91,7 +85,6 @@ export default class Bundler {
 
     this.assetGraph.forEach((asset) => {
       let mapping = {};
-      console.log(asset);
       asset.dependencyMap && asset.dependencyMap.forEach((depAsset, key) => (mapping[key] = depAsset.id));
       modules += `${asset.id}: [
         function (require, module, exports) {

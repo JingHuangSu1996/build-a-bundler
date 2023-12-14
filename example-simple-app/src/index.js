@@ -1,3 +1,4 @@
-import message from './message';
+import hello from './hello';
+import world from './world';
 
-console.log(message);
+console.log(hello + world);
