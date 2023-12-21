@@ -1,1 +1,3 @@
-console.log('hello world');
+import word from './a.js';
+
+console.log(word);
